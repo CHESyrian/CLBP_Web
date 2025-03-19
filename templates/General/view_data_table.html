@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/solid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.structure.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'DataTables/datatables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>
+      {{ Page_Title }}
+    </title>
+  </head>
+  <body style="background-color:rgba(220, 220, 220, 0.7);">
+    <a class="export-table-icon" href="#" title="حفظ كملف" draggable="true"> <i class="fa-solid fa-save"></i> </a>
+    <div id="table-container">
+      {{ DataFrame|safe }}
+    </div>
+  </body>
+  <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'DataTables/datatables.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'fontawesomefree/js/all.min.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'js/app.js' %}"> </script>
+  <script type="text/javascript">
+    $('.Data-Table').DataTable();
+  </script>
+</html>

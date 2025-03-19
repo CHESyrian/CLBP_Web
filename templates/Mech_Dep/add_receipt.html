@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.add_receipts %}
+  <form class="add-receipt-form rtl flex-column justify-center" method="post" action="{% url 'Adding_Receipt' %}">
+    {% csrf_token %}
+    <div class="receipt-g1 flex-row-wrap w-60 space-around my-10">
+      <input class="form-npt w-40 h-lh-30 my-5" type="text" name="RepReq_No" placeholder="رقم الطلب*" required>
+      <input class="form-npt w-40 h-lh-30 my-5" type="text" name="Year" placeholder="السنة*" required>
+      <label class="get-receipt-details form-lbl w-60 my-10 text-center pointer bg-lime h-lh-30 my-5">موافق</label>
+    </div>
+    <div class="horizontal-line w-100"></div>
+    <div class="receipt-g2-container my-10 w-90 hidden">
+      <div class="receipt-g2-titles flex-row space-around rtl my-10">
+        <label class="w-20 text-center">رقم الفاتورة</label>
+        <label class="w-20 text-center">تاريخ الفاتورة</label>
+        <label class="w-20 text-center">قيمة الفاتورة</label>
+        <label class="w-20 text-center">التاجر</label>
+      </div>
+      <div class="receipt-g2 my-5">
+        <input class="form-npt w-20 rtl" type="text" name="A_Receipt_No" required>
+        <input class="form-npt w-20 rtl" type="date" name="A_Receipt_Date" required>
+        <input class="form-npt w-20 rtl" type="text" name="A_Receipt_Value" required>
+        <input class="form-npt w-20 rtl" type="text" name="A_Store_Name" required>
+      </div>
+    </div>
+    <div class="pointer add-receipt-button hidden"> <span class="fa-solid fa-plus-circle"></span> </div>
+    <div class="horizontal-line w-100"></div>
+    <div class="receipt-g3-container flex-col my-10 hidden">
+      <div class="receipt-g3-titles w-100 flex-row space-around text-center">
+        <label class="w-30">بيان الاصلاحات</label>
+        <label class="w-30p">العدد</label>
+        <label class="w-10">النوع</label>
+        <label class="w-10">التكلفة</label>
+        <label class="w-60p">رقم الفاتورة</label>
+        <label class="w-20">التاجر</label>
+      </div>
+      <div class="receipt-g3">
+        <input type="text" name="Repair_ID" hidden>
+        <input class="w-30 form-npt" type="text" name="Repairs" placeholder="بيان الاصلاحات*" list="Repairs_List" readonly>
+        <input class="w-30p form-npt" type="number" name="Quantity" placeholder="العدد" valu="1" required>
+        <input class="w-10 form-npt" type="text" name="Type" placeholder="النوع">
+        <input class="w-10 form-npt" type="number" name="Cost" placeholder="التكلفة (= 0)" value="0" required>
+        <input class="w-60p form-npt" type="text" name="Receipt_No" placeholder="رقم الفاتورة">
+        <input class="w-20 form-npt" type="text" name="Store_Name" placeholder="التاجر" list="Stores-List">
+      </div>
+    </div>
+    <input type="submit" class="pointer save-receipt-btn hidden" value="حفظ">
+  </form>
+  <datalist id="Stores-List">
+    {% for Store in Stores  %}
+    <option value="{{ Store }}"></option>
+    {% endfor %}
+  </datalist>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

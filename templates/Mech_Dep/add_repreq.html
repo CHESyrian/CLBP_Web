@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.add_repair_request %}
+  <form class="add-repreq-form rtl flex-column" method="post" action="{% url 'Adding_Rep_Req' %}">
+    {% csrf_token %}
+    <div class="flex-row repreq-g1">
+      <input id="Mech-ID" class="w-10 form-npt mech-id" list="MechsID-List" type="text" name="Mech_ID" placeholder="رقم السيارة*" required>
+      <label id="Mech-Model" class="w-20 form-lbl text-center"></label>
+      <label id="Mech-Ownership" class="w-30 form-lbl text-center"></label>
+      <label id="Mech-Disposal" class="w-30 form-lbl text-center"></label>
+    </div>
+    <div class="horizontal-line"></div>
+    <div class="repreq-g2">
+      <input class="w-30 form-npt" type="number" name="Req_No" placeholder="رقم الطلب*" required>
+      <input class="w-30 form-npt" type="text" name="Req_Date" placeholder="تاريخ الطلب  05/12/2022" onfocus="(this.type='date')" onblur="(this.type='text')" required>
+      <input class="w-30 form-npt" type="number" name="Kilometers" placeholder="رقم العداد">
+      <input class="w-30 form-npt" type="text" name="Driver_Name" placeholder="اسم السائق*" list="Drivers-List" required>
+      <input class="w-30 form-npt" type="number" name="Approval" placeholder="الموافقة (الافتراضية = 0)" value="0" required>
+      <input class="w-30 form-npt" type="number" name="Expected_Cost" placeholder="التكلفة التقديرية (الافتراضية = 0)" value="0" required>
+      <select class="w-30 form-npt h-lh-40" name="Rep_Type">
+        <option value="صيانة دورية" checked>صيانة دورية</option>
+        <option value="صيانة طارئة">صيانة طارئة</option>
+      </select>
+    </div>
+    <div class="repreq-status">
+      <label class="repreq-status-title">حالة الطلب</label>
+      <div class="repreq-status-options">
+        <div>
+          <input id="status-1" type="radio" name="RepReq_Status" value="بانتظار الموافقة" checked>
+          <label for="status-1">بانتظار الموافقة</label>
+        </div>
+        <div>
+          <input id="status-2" type="radio" name="RepReq_Status" value="قيد التنفيذ">
+          <label for="status-2">قيد التنفيذ</label>
+        </div>
+        <div>
+          <input id="status-3" type="radio" name="RepReq_Status" value="تم التنفيذ">
+          <label for="status-3">تم التنفيذ</label>
+        </div>
+        <div>
+          <input id="status-4" type="radio" name="RepReq_Status" value="مصروف">
+          <label for="status-4">مصروف</label>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-line"></div>
+    <div class="repreq-g3-container flex-col">
+      <div class="repreq-g3">
+        <input class="w-30 form-npt" type="text" name="Repairs" placeholder="بيان الاصلاحات*" list="Repairs_List" required>
+        <input class="w-30p form-npt" type="number" name="Quantity" placeholder="العدد">
+        <input class="w-10 form-npt" type="text" name="Type" placeholder="النوع">
+        <input class="w-10 form-npt" type="number" name="Cost" placeholder="التكلفة (= 0)" value="0" required>
+        <input class="w-60p form-npt" type="text" name="Receipt_No" placeholder="رقم الفاتورة">
+        <input class="w-20 form-npt" type="text" name="Store_Name" placeholder="التاجر" list="Stores-List">
+      </div>
+    </div>
+    <div class="pointer add-g3-button"> <span class="fa-solid fa-plus-circle"></span> </div>
+    <input type="submit" class="pointer w-100p save-repreq-btn" name="" value="حفظ">
+  </form>
+  <datalist id="MechsID-List">
+    {% for Mech in MechsID %}
+      <option value="{{ Mech }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="Stores-List">
+    {% for Store in Stores  %}
+      <option value="{{ Store }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="Drivers-List">
+    {% for Driver in Drivers %}
+      <option value="{{ Driver }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="Repairs-List">
+    {% for Repair in Repairs %}
+      <option value="{{ Repair }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="RepType-List">
+    
+  </datalist>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

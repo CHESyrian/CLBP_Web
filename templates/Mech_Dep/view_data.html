@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+<div class="view-data-container rtl">
+  <a class="view-data-link" href="{% url 'View_RepReqs' %}" target="_blank">عرض جدول طلبات الاصلاح</a>
+  <a class="view-data-link" href="{% url 'View_MechsReps' %}" target="_blank">عرض جدول الاصلاحات</a>
+  <a class="view-data-link" href="{% url 'View_Data_Table' 'Receipts' %}" target="_blank">عرض جدول الفواتير</a>
+  <a class="view-data-link" href="{% url 'View_Data_Table' 'Statements' %}" target="_blank">عرض جدول الكشوف</a>
+  <a class="view-data-link" href="" target="_blank"></a>
+</div>
+{% endblock MainContainer %}

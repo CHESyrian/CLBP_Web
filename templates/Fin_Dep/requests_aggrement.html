@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.view_repair_request and perms.mechanisms_department.edit_repair_request%}
+  <div class="flex-col w-95">
+    {% for req in Requests %}
+      <div class="req-for-aggrement rtl w-100">
+        {% csrf_token %}
+        <input type="text" name="RepReq_ID" value="{{req.Request_ID}}" hidden>
+        <label class="form-lbl w-10">رقم الطلب : {{req.Request_No}}</label>
+        <label class="form-lbl w-15">رقم السيارة : {{req.Mechanism_No}}</label>
+        <label class="form-lbl w-20">الكلفة التقديرية : {{req.Expected_Cost}}</label>
+        <div class="">
+          <label for="Approval">قيمة الموافقة</label>
+          <input class="npt" type="number" name="Approval" placeholder="رقم صحيح(مثال : 100000)" required>
+        </div>
+        <input class="give-aggrement-btn give-agg-id-{{req.Request_ID}}" type="button" name="Give_Aggrement" value="موافق">
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

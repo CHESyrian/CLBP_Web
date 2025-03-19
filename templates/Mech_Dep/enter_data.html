@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+  <form class="enter-data-form w-100 flex-column justify-center rtl" action="index.html" method="post">
+    {% csrf_token %}
+    <select class="w-30 my-10" name="Table_Name">
+      <option value="entering_drivers">جدول السائقين</option>
+      <option value="entering_stores">جدول التجار</option>
+      <option value="entering_parts_repairs">جدول القطع و الاصلاحات</option>
+    </select>
+    <label class="add-form-table form-lbl w-30 my-10 text-center pointer bg-lime h-lh-40">موافق</label>
+    <div class="horizontal-line my-10 w-100"></div>
+    <div class="table-form flex-column justify-center w-100" style="display:none;">
+      <div class="drivers-table-field flex-row space-around my-10 rtl w-90 ">
+        <input class="w-20 form-npt rtl" type="text" name="" placeholder="اسم السائق*" required>
+        <input class="w-30 form-npt rtl" type="text" name="" placeholder="المكتب">
+        <input class="w-10 form-npt rtl" type="text" name="" placeholder="رقم السيارة">
+        <input class="w-30 form-npt rtl" type="text" name="" placeholder="تحت تصرف">
+      </div>
+      <div class="stores-table-field flex-row space-around my-10 rtl w-90">
+        <input class="w-20 form-npt rtl" type="text" name="" placeholder="التاجر*" required>
+        <input class="w-20 form-npt rtl" type="text" name="" placeholder="العنوان">
+        <input class="w-20 form-npt rtl" type="text" name="" placeholder="البريد الالكتروني">
+        <input class="w-15 form-npt rtl" type="text" name="" placeholder="رقم الهاتف / الفاكس">
+        <input class="w-15 form-npt rtl" type="text" name="" placeholder="رقم الموبايل">
+      </div>
+      <div class="parts-table-field flex-row space-around my-10 rtl w-90">
+        <input class="w-40 form-npt rtl" type="text" name="" value="" placeholder="اسم القطع / الاصلاحات" required>
+        <select class="w-20 h-lh-35 form-npt" name="">
+          <option value="صيانة دورية">صيانة دورية</option>
+          <option value="صيانة طارئة">صيانة طارئة</option>
+        </select>
+      </div>
+    </div>
+    <div class="pointer add-table-field-button hidden"> <span class="fa-solid fa-plus-circle"></span> </div>
+    <input class="pointer save-btn w-100p hidden" type="submit" value="حفظ">
+  </form>
+{% endblock MainContainer %}

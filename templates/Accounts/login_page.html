@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-classes.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title></title>
+  </head>
+  <body>
+    <div class="login-page">
+      <h1>القيادة المركزية لحزب البعث العربي الاشتراكي</h1>
+      <form class="login-form" action="{% url 'LoggingIn' %}" method="post">
+        <img src="{% static 'images/b3th_logo.png' %}">
+        {% csrf_token %}
+        <input class="npt rtl w-70 h-lh-30 my-5" type="text" name="Log_UserName_Input" placeholder="اسم المستخدم">
+        <input class="npt rtl w-70 h-lh-30 my-5" type="password" name="Log_Password_Input" placeholder="كلمة المرور">
+        <input class="npt-submit w-70 h-10 my-5" type="submit" name="Login_Submit" value="تسجيل الدخول">
+      </form>
+    </div>
+  </body>
+  <!-- JavaScripts Files -->
+  <script type="text/javascript" src="{% static 'js/app.js' %}"> </script>
+</html>

@@ -1,0 +1,9 @@
+{% load static %}
+<!--
+<div class="navbar-icon fa-solid fa-bars font-32 w-40p"> </div> <
+div class="w-100p"></div>
+-->
+<img class="navbar-icon" src="{% static 'images/b3th_logo.png' %}" alt="">
+<a class="navbar-icon cl-black brl-left-2-b" href="{% url 'Settings' %}"><div class="fa-solid fa-cog font-32 w-40p"> </div></a>
+<a href="{% url 'Mech_Dep' %}" class="navbar-link">قسم الآليات</a>
+<a href="{% url 'Fin_Dep' %}" class="navbar-link">القسم المالي</a>

@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title> القيادة المركزية - صفحة خطأ </title>
+  </head>
+  <body>
+    <div class="error-container">
+      <h3 class="error-title">خطأ - ERROR</h3>
+      <div class="error-content">
+        {{Error_Message}}
+      </div>
+      <a class="back-home-link" href="{% url 'Home_Page' %}">العودة الى الصفحة الرئيسية</a>
+    </div>
+  </body>
+
+
+</html>

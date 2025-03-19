@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.financial_department.add_balance_items %}
+  <form class="sub-balance-item-form flex-column w-90" action="{% url 'Setting_SubBalance_Item' %}" method="post">
+    {% csrf_token %}
+    <div class="sub-balance-item-labels w-100 flex-row space-around rtl my-10">
+      <label class="form-lbl w-10 text-center">سنة الموازنة</label>
+      <label class="form-lbl w-25 text-center">اسم الحساب</label>
+      <label class="form-lbl w-25 text-center">البند</label>
+      <label class="form-lbl w-15 text-center">حجم الرصيد</label>
+      <label class="form-lbl w-10 text-center">المدة الزمنية</label>
+    </div>
+    <div class="horizontal-line w-100 my-10"> </div>
+    <div class="sub-balance-item-inputs flex-column w-100">
+      <div class="sub-balance-item-field w-100 flex-row space-around rtl my-10">
+        <input class="form-npt w-10" type="text" name="SubBalItm_Year" value="{{Year}}" required>
+        <input class="form-npt w-25" name="SubBalItm_Account" list="SubBalanceAccounts-List" required>
+        <input class="form-npt w-25" type="text" name="SubBalItm_Item" required>
+        <input class="form-npt w-15" type="number" name="SubBalItm_Volume" required>
+        <select class="form-npt h-lh-40 w-10" name="SubBalItm_Duration" required>
+          <option value="سنوية">سنوية</option>
+          <option value="نصف سنوية">نصف سنوية</option>
+          <option value="ربع سنوية">ربع سنوية</option>
+          <option value="شهرية">شهرية</option>
+        </select>
+      </div>
+    </div>
+    <div class="horizontal-line w-100 my-10"> </div>
+    <div class="pointer add-subbalance-item-field add-button my-10"> <span class="fa-solid fa-plus-circle"></span> </div>
+    <input type="submit" class="save-btn pointer w-10 my-10" value="حفظ">
+  </form>
+  <datalist id="SubBalanceAccounts-List">
+    {% for Account in Accounts %}
+    <option value="{{Account}}">{{Account}}</option>
+    {% endfor %}
+  </datalist>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

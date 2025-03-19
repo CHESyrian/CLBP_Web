@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+<div class="view-data-container">
+  {% if perms.financial_department.view_main_balance and perms.financial_department.view_subbalances and perms.financial_department.view_subbalance_items and perms.mechanisms_department.view_repair_request and perms.mechanisms_department.view_statements %}
+    <a class="view-data-link" href="{% url 'View_Repair_Balance' %}">اصلاح الآليات</a>
+</div>
+{% endif %}
+{% endblock MainContainer %}

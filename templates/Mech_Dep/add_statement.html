@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.add_statement %}
+  <form class="add-receipt-form rtl flex-column justify-center" method="post" action="{% url 'Adding_Statement' %}">
+    {% csrf_token %}
+    <div class="statement-g2-container my-10 w-90">
+      <div class="statement-g2-titles w-100 flex-row space-around rtl my-10">
+        <label class="w-10 text-center">الرقم</label>
+        <label class="w-10 text-center">السنة</label>
+        <label class="w-20 text-center">القيمة</label>
+        <label class="w-30 text-center">الميزانية</label>
+        <label class="w-20 text-center">النوع</label>
+      </div>
+      <div class="statement-g2">
+        <input class="form-npt w-10 rtl" type="text" name="Statement_No" required>
+        <input class="form-npt w-10 rtl" type="text" name="Statement_Year" required>
+        <input class="form-npt w-20 rtl" type="text" name="Statement_Value" required>
+        <input class="form-npt w-30 rtl" type="text" name="SubBalance" required>
+        <input class="form-npt w-20 rtl" type="text" name="Statement_Type" required>
+      </div>
+    </div>
+    <div class="horizontal-line w-100 my-10"></div>
+    <div class="statement-g3-container w-100 flex-column">
+      <div class="w-40 flex-row justify-start">
+        <input class="form-npt w-20 mx-10" type="number" name="RepReqs_Count" placeholder="عدد الطلبات*">
+        <div class="pointer add-statement-field-button mx-10"> <span class="fa-solid fa-plus-circle"></span> </div>
+      </div>
+      <div class="horizontal-line w-100 my-10"></div>
+      <label class="form-lbl w-98 text-right my-10">ارقام الطلبات</label>
+      <div class="statement-g3 w-70 flex-row-wrap justify-start">
+        <input class="repreq-statement form-npt w-40p m-10" type="text" name="RepReq_No" value="" required>
+      </div>
+    </div>
+    <div class="horizontal-line w-100"></div>
+    <input type="submit" class="pointer w-100p save-statement-btn" value="حفظ">
+  </form>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

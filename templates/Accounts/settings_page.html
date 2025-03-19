@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block MainContainer %}
+<div class="settings-menu">
+  {% if request.user.is_superuser %}
+    <a class="link" href="{% url 'admin:index' %}">لوحة التحكم</a>
+  {% endif %}
+  <a class="link" href="#">تغيير كلمة المرور</a>
+  <a class="link" href="{% url 'LoggingOut' %}">تسجيل الخروج</a>
+</div>
+{% endblock MainContainer %}

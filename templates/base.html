@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesomefree/css/solid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.structure.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block StyleSheet %}
+    {% endblock StyleSheet %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>القيادة المركزية</title>
+    <title>
+
+    </title>
+  </head>
+  <body>
+    <div class="page-content">
+      <img id="main-background" src="{% static 'images/central_leadership.png' %}">
+      <div class="top-nav-bar">
+        {% block NavBar %}
+          {% include "navbar.html" %}
+        {% endblock NavBar %}
+      </div>
+      <div class="right-side-bar">
+        {% block SideBar %}
+
+        {% endblock SideBar %}
+      </div>
+      <div class="main-container">
+        {% block MainContainer %}
+
+        {% endblock MainContainer %}
+      </div>
+    </div>
+  </body>
+
+  <!-- JavaScripts Files -->
+  <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'js/app_functions.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'fontawesomefree/js/all.min.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'js/app.js' %}"> </script>
+  {% block JavaScript %}
+  {% endblock JavaScript %}
+</html>

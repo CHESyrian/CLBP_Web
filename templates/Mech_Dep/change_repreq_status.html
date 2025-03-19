@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.edit_repair_request %}
+  <form class="change-repreq-status-form rtl flex-column w-50 space-around" method="post" action="{% url 'Changing_RepReq_Status' %}">
+    {% csrf_token %}
+    <input class="w-60 form-npt my-10" type="text" name="RepReq_No" placeholder="رقم الطلب*" required>
+    <!-- <input class="w-60 form-npt my-10" type="text" name="RepReq_Year" placeholder="السنة*" required> -->
+    <select class="w-60 form-npt my-10 h-lh-35" name="RepReq_Status">
+      <option value="بانتظار الموافقة"> بانتظار الموافقة </option>
+      <option value="قيد التنفيذ"> قيد التنفيذ </option>
+      <option value="تم التنفيذ"> تم التنفيذ </option>
+      <option value="مصروف"> مصروف </option>
+      <option value="ملغى"> ملغى </option>
+    </select>
+    <input type="submit" class="pointer w-60 save-repreq-status-btn my-10" name="" value="حفظ">
+  </form>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

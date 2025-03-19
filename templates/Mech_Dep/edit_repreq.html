@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.mechanisms_department.edit_repair_request %}
+  <form class="edit-repreq-form rtl w-90 my-0 flex-column justify-center" action="{% url 'Editing_RepReq' %}" method="post">
+    {% csrf_token %}
+    <div class="editdetails-form w-60 flex-column justify-center my-0 rtl">
+      <div class="flex-row space-around w-100 my-10">
+        <input class="form-npt w-40" type="text" name="RepReq_No" placeholder="رقم الطلب*" required>
+        <input class="form-npt w-40" type="text" name="RepReq_Year" placeholder="السنة*" required>
+      </div>
+      <select class="edit-type form-npt w-90 hl-30p my-10 h-lh-40" name="Editing_Type" >
+        <option value="getRepairRequestData" checked>تعديل بيانات الطلب</option>
+        <option value="getRepairsDetails">تعديل تفاصيل الاصلاح</option>
+        <option value="getRepairsDetailsD">حذف اصلاحات</option>
+      </select>
+      <label class="get-editform form-lbl w-60 my-10 text-center pointer bg-lime h-lh-40">موافق</label>
+    </div>
+    <!-- Repair Request Data -->
+    <div class="edit-repreqdata-form repreq-g2-edit-container repreq-g2-edit" style="display:none;">
+      <input class="w-30 form-npt" type="text" name="Mech_ID" placeholder="رقم الآلية*">
+      <input class="w-30 form-npt" type="text" name="Req_Date" placeholder="تاريخ الطلب  /يوم/شهر/سنة">
+      <input class="w-30 form-npt" type="text" name="Kilometers" placeholder="رقم العداد">
+      <input class="w-30 form-npt" type="text" name="Driver_Name" placeholder="اسم السائق*" list="Drivers-List">
+      <input class="w-30 form-npt" type="number" name="Approval" placeholder="الموافقة*">
+      <input class="w-30 form-npt" type="number" name="Expected_Cost" placeholder="الكلفة الاجمالية التقديرية">
+      <select class="w-30 form-npt h-lh-40" name="Rep_Type">
+        <option value="صيانة دورية" checked>صيانة دورية</option>
+        <option value="صيانة طارئة">صيانة طارئة</option>
+      </select>
+    </div>
+    <!-- Repairs Details -->
+    <div class="edit-repairsdetails-form hidden">
+      <div class="repreq-g3-edit-container flex-column justify-center">
+        <div class="repreq-g3-edit">
+          <input type="text" name="Repair_ID" value="New_ID" hidden>
+          <input class="w-40 form-npt" type="text" name="Repairs" placeholder="بيان الاصلاحات*" list="Repairs_List">
+          <input class="w-30p form-npt" type="number" name="Quantity" placeholder="العدد" value="1">
+          <input class="w-10 form-npt" type="text" name="Type" placeholder="النوع">
+          <input class="w-10 form-npt" type="number" name="Cost" placeholder="الكلفة" value="0" readonly>
+          <input class="w-10 form-npt" type="text" name="Receipt_No" placeholder="رقم الفاتورة" readonly>
+          <input class="w-10 form-npt" type="text" name="Store_Name" placeholder="التاجر*" list="Stores-List" readonly>
+        </div>
+      </div>
+      <div class="pointer add-g3edit-button"> <span class="fa-solid fa-plus-circle"></span> </div>
+    </div>
+    <!-- Delete Repairs Details  -->
+    <div class="delete-repairsdetails-form repreq-g3-container-d flex-column justify-center" style="display:none;">
+      <div class="repreq-g3-d">
+        <input type="text" name="D_Repair_ID" value="New_ID" hidden>
+        <input class="w-40 form-npt" type="text" name="D_Repairs" placeholder="بيان الاصلاحات*" list="Repairs_List" readonly>
+        <input class="w-30p form-npt" type="number" name="D_Quantity" placeholder="العدد" value="1" readonly>
+        <input class="w-10 form-npt" type="text" name="D_Type" placeholder="النوع" readonly>
+        <input class="w-10 form-npt" type="number" name="D_Cost" placeholder="الكلفة" value="0" readonly>
+        <input class="delete-repair-button" type="button" value="حذف" onclick="deleteRepair(this);">
+      </div>
+    </div>
+    <input type="submit" class="pointer edit-repreq-btn hidden" value="حفظ التغييرات">
+  </form>
+  <!-- Data Lsts fpr Inputs -->
+  <datalist id="Stores-List">
+    {% for Store in Stores  %}
+      <option value="{{ Store }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="Drivers-List">
+    {% for Driver in Drivers %}
+      <option value="{{ Driver }}"></option>
+    {% endfor %}
+  </datalist>
+  <datalist id="Repairs-List">
+    {% for Repair in Repairs %}
+      <option value="{{ Repair }}"></option>
+    {% endfor %}
+  </datalist>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.financial_department.view_main_balance and perms.financial_department.view_subbalances and perms.financial_department.view_subbalance_items %}
+  <div id="accordion-2" class="balances-sections">
+    <h2 class="balance-title">موازنة القيادة المركزية</h2>
+    <div class="balance-content">
+      {{Data_1|safe}}
+    </div>
+    <h2 class="balance-title">موازنة الجبهة الوطنية التقدمية</h2>
+    <div class="balance-content">
+      {{Data_2|safe}}
+    </div>
+    <h2 class="balance-title">موازنة الاتصال القومي</h2>
+    <div class="balance-content">
+      {{Data_3|safe}}
+    </div>
+    <h2 class="balance-title">موازنة كتائب البعث</h2>
+    <div class="balance-content">
+      {{Data_4|safe}}
+    </div>
+    <h2 class="balance-title">موازنة لجنة الرقابة و التفتيش الحزبية</h2>
+    <div class="balance-content">
+      {{Data_5|safe}}
+    </div>
+  </div>
+{% else %}
+
+{% endif %}
+{% endblock MainContainer %}

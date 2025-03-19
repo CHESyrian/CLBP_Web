@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.financial_department.add_sub_balances %}
+  <form class="sub-balance-form w-90 flex-column justify-center" action="{% url 'Setting_SubBalance' %}" method="post">
+    {% csrf_token %}
+    <div class="sub-balance-labels w-100 flex-row space-around rtl my-10">
+      <label class="form-lbl w-20 text-center">اسم الحساب</label>
+      <label class="form-lbl w-20 text-center">سنة الموازنة</label>
+      <label class="form-lbl w-20 text-center">حجم الرصيد</label>
+      <label class="form-lbl w-20 text-center">المدة الزمنية</label>
+    </div>
+    <div class="horizontal-line w-100 my-10"> </div>
+    <div class="sub-balance-inputs w-100 flex-column">
+      <div class="sub-balance-field w-100 flex-row space-around rtl my-10">
+        <input class="form-npt w-20" type="text" name="SubBal_Account" required>
+        <input class="form-npt w-20" type="text" name="SubBal_Year" value="{{Year}}" required>
+        <input class="form-npt w-20" type="number" name="SubBal_Volume" required>
+        <select class="form-npt w-20 h-lh-40" name="SubBal_Duration" required>
+          <option value="سنوية">سنوية</option>
+          <option value="نصف سنوية">نصف سنوية</option>
+          <option value="ربع سنوية">ربع سنوية</option>
+          <option value="شهرية">شهرية</option>
+        </select>
+      </div>
+    </div>
+    <div class="horizontal-line w-100 my-10"> </div>
+    <div class="pointer add-sub-balance-field add-button my-10"> <span class="fa-solid fa-plus-circle"></span> </div>
+    <input type="submit" class="save-btn pointer w-10 my-10" value="حفظ">
+  </form>
+{% else %}
+  <h1>عذرا,ليس لديك صلاحيات لعرض هذه الصفحة.</h1>
+{% endif %}
+{% endblock MainContainer %}

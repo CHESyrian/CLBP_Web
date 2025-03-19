@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Fin_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+{% if perms.financial_department.add_main_balance %}
+  <form class="main-balance-form w-90 flex-column rtl" action="{% url 'Setting_Main_Balance' %}" method="post">
+    {% csrf_token %}
+    <div class="main-balance-labels w-100 flex-row space-around my-10">
+      <label class="form-lbl w-30 text-center">سنة الموازنة</label>
+      <label class="form-lbl w-30 text-center">حجم الموازنة</label>
+      <label class="form-lbl w-30 text-center">المدة الزمنية</label>
+    </div>
+    <div class="horizontal-line w-100 my-10"> </div>
+    <div class="main-balance-inputs w-100 flex-row space-around my-10 rtl">
+      <input class="form-npt w-30" type="text" name="Bal_Year" required>
+      <input class="form-npt w-30" type="number" name="Bal_Volume" required>
+      <select class="form-npt w-30 h-lh-40" name="Bal_Duration" required>
+        <option value="سنوية">سنوية</option>
+        <option value="نصف سنوية">نصف سنوية</option>
+        <option value="ربع سنوية">ربع سنوية</option>
+        <option value="شهرية">شهرية</option>
+      </select>
+    </div>
+    <input type="submit" class="save-btn pointer" value="حفظ">
+  </form>
+{% else %}
+
+{% endif %}
+{% endblock MainContainer %}

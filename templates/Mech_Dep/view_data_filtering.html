@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block SideBar %}
+  {% include 'Mech_Dep/section_tasks.html' %}
+{% endblock SideBar %}
+
+{% block MainContainer %}
+<div class="flex-row space-around rtl my-10 w-90">
+  <label class="w-25 text-center">اسم الجدول</label>
+  <label class="w-20 text-center">تصفية حسب</label>
+  <label class="w-20 text-center">عامل التصفية</label>
+  <label class="w-20 text-center">السنة</label>
+</div>
+<div class="horizontal-line w-90"></div>
+<div class="flex-row-wrap space-around rtl my-10 w-90">
+  <select class="w-25 form-npt h-lh-40 rtl" name="Table">
+    <option value="No Table Name" checked>اختر اسم جدول...</option>
+    <option value="Repair_Requests">طلبات الاصلاح</option>
+    <option value="Mechanisms_Repairs">الاصلاحات</option>
+  </select>
+  <select class="w-20 form-npt h-lh-40 rtl" name="Filter">
+
+  </select>
+  <select class="w-20 form-npt h-lh-40 rtl" name="Keyword">
+
+  </select>
+  <select class="w-20 form-npt h-lh-40 rtl" name="Year">
+
+  </select>
+</div>
+<label class="view-data-filtering form-lbl w-20 text-center pointer bg-lime h-lh-40">عرض</label>
+{% endblock MainContainer %}
